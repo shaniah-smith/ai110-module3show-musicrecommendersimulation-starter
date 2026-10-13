@@ -36,8 +36,8 @@ Then every song in the catalog is sorted by points, and the top 5 are shown alon
 - **18 songs.** The original 10, plus 8 I added to cover genres and moods that were missing.
 - **Genres (15):** pop, indie pop, lofi, rock, ambient, jazz, synthwave, hip-hop, classical, metal, r&b, country, edm, reggae, indie.
 - **Moods (13):** happy, chill, intense, relaxed, moody, focused, confident, peaceful, angry, romantic, nostalgic, euphoric, sad.
-- **Features:** genre, mood, energy, tempo_bpm, valence, danceability, acousticness. Only genre, mood, energy, and acousticness are used in scoring.
-- **Gaps:** most moods have only 1–2 songs. Lofi has 3 songs, more than any other genre. There are no lyrics, languages, release years, or popularity data, and no songs outside mostly Western genres.
+- **Features:** genre, mood, energy, tempo_bpm, valence, danceability, acousticness, plus 5 I added later: popularity, release_decade, mood_tags, instrumentalness, speechiness. Genre, mood, energy, and acousticness are always scored. The 5 new ones only count when a user asks for them.
+- **Gaps:** most moods have only 1–2 songs. Lofi has 3 songs, more than any other genre. There are no lyrics or languages, and the songs are mostly Western genres. The popularity numbers and mood tags are made up for this simulation, not real data.
 
 ---
 
@@ -79,7 +79,7 @@ The biggest weakness I found is that **mood can override everything else the use
 ## 8. Future Work
 
 1. **Partial genre matching:** give "indie pop" partial credit for a "pop" fan (for example, half the genre points when one genre name contains the other).
-2. **Diversity penalty:** lower a song's score if the same artist or genre is already in the top 5, so the same few songs don't show up for everyone.
+2. **Variety across users, not just inside one list:** I added a diversity penalty that stops one top 5 from repeating an artist or genre, but Gym Hero can still show up for very different users. Next I'd track which songs get recommended most and lower their scores a little.
 3. **Multiple moods per user:** let a listener say "sad *and* energetic," and use valence (how positive a song sounds) to tell sad songs from happy ones instead of relying on one mood tag.
 
 ---

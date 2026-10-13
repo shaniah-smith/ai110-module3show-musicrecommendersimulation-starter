@@ -106,3 +106,44 @@ def test_diversity_penalty_avoids_repeat_artist_and_genre():
     assert "Focus Flow" in plain          # LoRoom + lofi again
     assert "Focus Flow" not in titles     # pushed out by the penalty
     assert len(titles) == len(set(titles)) == 5
+
+
+# ---- Optional challenges ---------------------------------------------------- #
+def test_new_features_load_correctly():
+    song = load_songs("data/songs.csv")[0]
+    assert isinstance(song["popularity"], float)
+    assert isinstance(song["mood_tags"], list)
+    assert song["release_decade"].endswith("s")
+
+
+def test_advanced_features_only_count_when_user_asks():
+    song = {"genre": "jazz", "mood": "relaxed", "energy": 0.4, "acousticness": 0.5,
+            "release_decade": "2010s", "mood_tags": ["cozy"], "popularity": 20.0,
+            "instrumentalness": 0.8, "speechiness": 0.1}
+    base = {"genre": "jazz", "mood": "relaxed", "energy": 0.4}
+    plain, _ = score_song(base, song)
+    extra, reasons = score_song({**base, "preferred_decade": "2010s", "mood_tags": ["cozy"],
+                                 "popularity_pref": "underground", "focus_mode": True}, song)
+    assert plain == 4.0
+    assert extra > plain
+    assert any("2010s" in r for r in reasons)
+    assert any("mood tags cozy" in r for r in reasons)
+
+
+def test_scoring_modes_change_the_ranking():
+    from src.recommender import recommend_with_mode
+    songs = load_songs("data/songs.csv")
+    prefs = {"genre": "indie", "mood": "sad", "energy": 0.9, "likes_acoustic": False}
+    mood_top = recommend_with_mode(prefs, songs, "mood_first")[0][0]["title"]
+    energy_top = recommend_with_mode(prefs, songs, "energy_focused")[0][0]["title"]
+    assert mood_top == "Empty Platform"
+    assert energy_top != "Empty Platform"
+
+
+def test_mood_first_mode_matches_default_recommender():
+    from src.recommender import recommend_with_mode
+    songs = load_songs("data/songs.csv")
+    prefs = {"genre": "pop", "mood": "happy", "energy": 0.8, "likes_acoustic": False}
+    a = [s["title"] for s, _, _ in recommend_with_mode(prefs, songs, "mood_first")]
+    b = [s["title"] for s, _, _ in recommend_songs(prefs, songs)]
+    assert a == b
