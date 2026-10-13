@@ -82,7 +82,26 @@ Tests in `tests/test_recommender.py` check the `Recommender` class, CSV loading 
 Output from `python -m src.main` (all profiles and the experiment):
 
 ```
-OUTPUT_PLACEHOLDER
+Loaded songs: 18
+
+User profile: genre=pop, mood=happy, energy=0.8, likes_acoustic=False
+Top recommendations:
+
+1. Sunrise City by Neon Echo  [pop, happy]
+   Score: 4.39
+   Because: mood match (+2.0); genre match (+1.0); energy 0.82 vs target 0.80 (+0.98); acoustic fit (+0.41)
+2. Rooftop Lights by Indigo Parade  [indie pop, happy]
+   Score: 3.29
+   Because: mood match (+2.0); energy 0.76 vs target 0.80 (+0.96); acoustic fit (+0.33)
+3. Gym Hero by Max Pulse  [pop, intense]
+   Score: 2.35
+   Because: genre match (+1.0); energy 0.93 vs target 0.80 (+0.87); acoustic fit (+0.47)
+4. Concrete Crown by Verse Theory  [hip-hop, confident]
+   Score: 1.42
+   Because: energy 0.78 vs target 0.80 (+0.98); acoustic fit (+0.44)
+5. Storm Runner by Voltline  [rock, intense]
+   Score: 1.34
+   Because: energy 0.91 vs target 0.80 (+0.89); acoustic fit (+0.45)
 ```
 
 ---
