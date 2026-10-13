@@ -238,7 +238,6 @@ More detail is in the model card.
 
 Read the full model card: [**Model Card**](model_card.md)
 
-<!-- Write 1–2 paragraphs IN YOUR OWN WORDS. Questions to answer:
-  - What did you learn about how recommenders turn data into predictions?
-  - Where could bias or unfairness show up in systems like this?
-  Delete this comment when you're done. -->
+Building this showed me that a recommender is really just a scoring system. Every song gets points for how close it is to what the user said they want, then the list gets sorted. When the user's taste is simple, like my Chill Lofi profile, the results look like a real playlist. When the taste is mixed, like sad but high energy, the system just goes with whatever is worth the most points, even if that means giving a quiet song to someone who asked for loud.
+
+Bias can show up in small choices. Making mood worth 2 points meant mood could beat everything else the user asked for. Exact text matching meant "indie pop" got no credit from a pop fan, and a k-pop fan's genre got ignored without any warning. A small catalog also made the same high energy songs fill the leftover spots for very different users. In a real app those choices would decide which artists get heard, which is a lot of power for a few numbers.

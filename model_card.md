@@ -86,14 +86,10 @@ The biggest weakness I found is that **mood can override everything else the use
 
 ## 9. Personal Reflection
 
-<!-- WRITE THIS IN YOUR OWN WORDS. Graders check for specific, honest details.
-Answer each question in 1–3 sentences:
+**Biggest learning moment:** The "high energy but sad" test. I set energy to 0.9 and mood to sad, expecting something loud and sad. Instead #1 was Empty Platform, a quiet 0.30 energy song. It got 3 points just for matching mood and genre, so the energy part barely mattered. That's when I got that the system doesn't understand what I want. It just adds up points, and whatever rule is worth the most wins.
 
-1. What was your biggest learning moment during this project?
-2. How did using AI tools help you, and when did you need to double-check them?
-   (Be honest about how much of the code the AI wrote and what you checked yourself.
-    For example: did you read the output and agree the rankings made sense?)
-3. What surprised you about how simple algorithms can still "feel" like recommendations?
-4. What would you try next if you extended this project?
+**How I used AI:** I used Claude for most of this project. It wrote the code in recommender.py and main.py, the tests, and the first drafts of the README and this model card. I made the design calls, like making mood worth 2 points and genre 1 point because the feeling of a song matters more to me than the genre label. I also ran everything on my own laptop and checked that the results made sense before I committed. Where I had to slow down was the explanations. I didn't want to just trust that the rankings were right, so I went through the reasons in the output, like "mood match (+2.0)", to see why each song landed where it did.
 
-Delete this comment when you're done. -->
+**What surprised me:** How real the Chill Lofi list looks. Library Rain, Midnight Coding, Spacewalk Thoughts, Focus Flow and Coffee Shop Stories honestly sound like a playlist I'd put on to study, and it came from a few points being added together. But one weird combo like sad and high energy and it falls apart, so it only "feels" smart when your taste is simple.
+
+**What I'd try next:** Stop the same songs from showing up for everyone. Gym Hero and Storm Runner kept popping up in the top 5 for totally different people. I'd add a penalty so once a genre or artist is already in the list, the next song from it scores lower and something different gets a chance.
