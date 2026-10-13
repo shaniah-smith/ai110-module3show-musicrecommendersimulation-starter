@@ -84,9 +84,10 @@ Output from `python -m src.main` (all profiles and the experiment):
 ```
 Loaded songs: 18
 
-User profile: genre=pop, mood=happy, energy=0.8, likes_acoustic=False
-Top recommendations:
-
+========================================================================
+Profile: Happy Pop (default)
+Prefs:   genre=pop, mood=happy, energy=0.8, likes_acoustic=False
+------------------------------------------------------------------------
 1. Sunrise City by Neon Echo  [pop, happy]
    Score: 4.39
    Because: mood match (+2.0); genre match (+1.0); energy 0.82 vs target 0.80 (+0.98); acoustic fit (+0.41)
@@ -102,7 +103,134 @@ Top recommendations:
 5. Storm Runner by Voltline  [rock, intense]
    Score: 1.34
    Because: energy 0.91 vs target 0.80 (+0.89); acoustic fit (+0.45)
+
+========================================================================
+Profile: Chill Lofi
+Prefs:   genre=lofi, mood=chill, energy=0.35, likes_acoustic=True
+------------------------------------------------------------------------
+1. Library Rain by Paper Lanterns  [lofi, chill]
+   Score: 4.43
+   Because: mood match (+2.0); genre match (+1.0); energy 0.35 vs target 0.35 (+1.00); acoustic fit (+0.43)
+2. Midnight Coding by LoRoom  [lofi, chill]
+   Score: 4.29
+   Because: mood match (+2.0); genre match (+1.0); energy 0.42 vs target 0.35 (+0.93); acoustic fit (+0.35)
+3. Spacewalk Thoughts by Orbit Bloom  [ambient, chill]
+   Score: 3.39
+   Because: mood match (+2.0); energy 0.28 vs target 0.35 (+0.93); acoustic fit (+0.46)
+4. Focus Flow by LoRoom  [lofi, focused]
+   Score: 2.34
+   Because: genre match (+1.0); energy 0.40 vs target 0.35 (+0.95); acoustic fit (+0.39)
+5. Coffee Shop Stories by Slow Stereo  [jazz, relaxed]
+   Score: 1.43
+   Because: energy 0.37 vs target 0.35 (+0.98); acoustic fit (+0.45)
+
+========================================================================
+Profile: Deep Intense Rock
+Prefs:   genre=rock, mood=intense, energy=0.9, likes_acoustic=False
+------------------------------------------------------------------------
+1. Storm Runner by Voltline  [rock, intense]
+   Score: 4.44
+   Because: mood match (+2.0); genre match (+1.0); energy 0.91 vs target 0.90 (+0.99); acoustic fit (+0.45)
+2. Gym Hero by Max Pulse  [pop, intense]
+   Score: 3.44
+   Because: mood match (+2.0); energy 0.93 vs target 0.90 (+0.97); acoustic fit (+0.47)
+3. Strobe Season by Kilo Drift  [edm, euphoric]
+   Score: 1.44
+   Because: energy 0.95 vs target 0.90 (+0.95); acoustic fit (+0.49)
+4. Iron Tide by Black Harbor  [metal, angry]
+   Score: 1.42
+   Because: energy 0.97 vs target 0.90 (+0.93); acoustic fit (+0.48)
+5. Sunrise City by Neon Echo  [pop, happy]
+   Score: 1.33
+   Because: energy 0.82 vs target 0.90 (+0.92); acoustic fit (+0.41)
+
+========================================================================
+Profile: Edge: High-Energy but Sad
+Prefs:   genre=indie, mood=sad, energy=0.9, likes_acoustic=False
+------------------------------------------------------------------------
+1. Empty Platform by Grey Static  [indie, sad]
+   Score: 3.56
+   Because: mood match (+2.0); genre match (+1.0); energy 0.30 vs target 0.90 (+0.40); acoustic fit (+0.16)
+2. Storm Runner by Voltline  [rock, intense]
+   Score: 1.44
+   Because: energy 0.91 vs target 0.90 (+0.99); acoustic fit (+0.45)
+3. Gym Hero by Max Pulse  [pop, intense]
+   Score: 1.44
+   Because: energy 0.93 vs target 0.90 (+0.97); acoustic fit (+0.47)
+4. Strobe Season by Kilo Drift  [edm, euphoric]
+   Score: 1.44
+   Because: energy 0.95 vs target 0.90 (+0.95); acoustic fit (+0.49)
+5. Iron Tide by Black Harbor  [metal, angry]
+   Score: 1.42
+   Because: energy 0.97 vs target 0.90 (+0.93); acoustic fit (+0.48)
+
+========================================================================
+Profile: Edge: Genre Not in Catalog
+Prefs:   genre=k-pop, mood=happy, energy=0.7, likes_acoustic=False
+------------------------------------------------------------------------
+1. Sunrise City by Neon Echo  [pop, happy]
+   Score: 3.29
+   Because: mood match (+2.0); energy 0.82 vs target 0.70 (+0.88); acoustic fit (+0.41)
+2. Rooftop Lights by Indigo Parade  [indie pop, happy]
+   Score: 3.27
+   Because: mood match (+2.0); energy 0.76 vs target 0.70 (+0.94); acoustic fit (+0.33)
+3. Concrete Crown by Verse Theory  [hip-hop, confident]
+   Score: 1.36
+   Because: energy 0.78 vs target 0.70 (+0.92); acoustic fit (+0.44)
+4. Night Drive Loop by Neon Echo  [synthwave, moody]
+   Score: 1.34
+   Because: energy 0.75 vs target 0.70 (+0.95); acoustic fit (+0.39)
+5. Storm Runner by Voltline  [rock, intense]
+   Score: 1.24
+   Because: energy 0.91 vs target 0.70 (+0.79); acoustic fit (+0.45)
+
+########################################################################
+EXPERIMENT: energy weight doubled (2.0), genre weight halved (0.5)
+########################################################################
+========================================================================
+Profile: Happy Pop (experiment weights)
+Prefs:   genre=pop, mood=happy, energy=0.8, likes_acoustic=False
+------------------------------------------------------------------------
+1. Sunrise City by Neon Echo  [pop, happy]
+   Score: 4.87
+   Because: mood match (+2.0); genre match (+0.5); energy 0.82 vs target 0.80 (+1.96); acoustic fit (+0.41)
+2. Rooftop Lights by Indigo Parade  [indie pop, happy]
+   Score: 4.25
+   Because: mood match (+2.0); energy 0.76 vs target 0.80 (+1.92); acoustic fit (+0.33)
+3. Gym Hero by Max Pulse  [pop, intense]
+   Score: 2.72
+   Because: genre match (+0.5); energy 0.93 vs target 0.80 (+1.74); acoustic fit (+0.47)
+4. Concrete Crown by Verse Theory  [hip-hop, confident]
+   Score: 2.40
+   Because: energy 0.78 vs target 0.80 (+1.96); acoustic fit (+0.44)
+5. Night Drive Loop by Neon Echo  [synthwave, moody]
+   Score: 2.29
+   Because: energy 0.75 vs target 0.80 (+1.90); acoustic fit (+0.39)
 ```
+
+---
+
+## Experiments You Tried
+
+**Weight shift:** I doubled the energy weight (1.0 → 2.0) and halved the genre weight (1.0 → 0.5) for the Happy Pop profile.
+
+- The **top 3 didn't change** (Sunrise City, Rooftop Lights, Gym Hero), because mood (+2.0) still decides who is on top.
+- The **bottom of the list changed**: Storm Runner (rock) dropped out and Night Drive Loop (synthwave) came in, because once energy counts double, any song around 0.8 energy can climb, whatever its genre.
+- So the change made the list **different, not more accurate**. The filler songs were still songs a happy-pop fan didn't ask for.
+
+**Edge-case profiles:** see `model_card.md`. A "high-energy but sad" user and a user whose favorite genre isn't in the catalog both exposed weaknesses.
+
+---
+
+## Limitations and Risks
+
+- Tiny catalog: 18 songs, and most moods have only one or two songs.
+- Exact string matching: "indie pop" ≠ "pop", and "k-pop" matches nothing.
+- Mood is worth so much that it can override what the user said about energy.
+- It doesn't understand lyrics, language, or listening history.
+- It never adds variety on purpose, so the same high-energy songs (like *Gym Hero*) show up for very different users.
+
+More detail is in the model card.
 
 ---
 
