@@ -128,3 +128,36 @@ def recommend_songs(
         score, reasons = score_song(user_prefs, song, weights)
         scored.append((song, score, "; ".join(reasons)))
     return sorted(scored, key=lambda item: item[1], reverse=True)[:k]
+
+
+# ---- Optional Challenge 3: diversity penalty ------------------------------ #
+DIVERSITY_PENALTY = {"artist": 1.0, "genre": 0.5}
+
+
+def recommend_diverse(
+    user_prefs: Dict, songs: List[Dict], k: int = 5, weights: Optional[Dict] = None,
+    penalty: Optional[Dict] = None,
+) -> List[Tuple[Dict, float, str]]:
+    """Pick the top k one at a time, lowering a song's score if its artist or genre is already picked."""
+    p = penalty or DIVERSITY_PENALTY
+    remaining = []
+    for song in songs:
+        score, reasons = score_song(user_prefs, song, weights)
+        remaining.append((song, score, reasons))
+
+    picked: List[Tuple[Dict, float, str]] = []
+    while remaining and len(picked) < k:
+        best = None
+        for song, score, reasons in remaining:
+            adjusted, notes = score, []
+            if any(s["artist"] == song["artist"] for s, _, _ in picked):
+                adjusted -= p["artist"]
+                notes.append(f"artist already in list (-{p['artist']:.1f})")
+            if any(s["genre"] == song["genre"] for s, _, _ in picked):
+                adjusted -= p["genre"]
+                notes.append(f"genre already in list (-{p['genre']:.1f})")
+            if best is None or adjusted > best[1]:
+                best = (song, round(adjusted, 2), "; ".join(reasons + notes))
+        picked.append(best)
+        remaining = [r for r in remaining if r[0] is not best[0]]
+    return picked

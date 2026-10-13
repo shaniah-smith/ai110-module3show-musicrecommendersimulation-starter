@@ -206,6 +206,29 @@ Prefs:   genre=pop, mood=happy, energy=0.8, likes_acoustic=False
 5. Night Drive Loop by Neon Echo  [synthwave, moody]
    Score: 2.29
    Because: energy 0.75 vs target 0.80 (+1.90); acoustic fit (+0.39)
+
+########################################################################
+CHALLENGE 3: diversity penalty (-1.0 repeat artist, -0.5 repeat genre)
+########################################################################
+========================================================================
+Profile: Chill Lofi (diverse)
+Prefs:   genre=lofi, mood=chill, energy=0.35, likes_acoustic=True
+------------------------------------------------------------------------
+1. Library Rain by Paper Lanterns  [lofi, chill]
+   Score: 4.43
+   Because: mood match (+2.0); genre match (+1.0); energy 0.35 vs target 0.35 (+1.00); acoustic fit (+0.43)
+2. Midnight Coding by LoRoom  [lofi, chill]
+   Score: 3.79
+   Because: mood match (+2.0); genre match (+1.0); energy 0.42 vs target 0.35 (+0.93); acoustic fit (+0.35); genre already in list (-0.5)
+3. Spacewalk Thoughts by Orbit Bloom  [ambient, chill]
+   Score: 3.39
+   Because: mood match (+2.0); energy 0.28 vs target 0.35 (+0.93); acoustic fit (+0.46)
+4. Coffee Shop Stories by Slow Stereo  [jazz, relaxed]
+   Score: 1.43
+   Because: energy 0.37 vs target 0.35 (+0.98); acoustic fit (+0.45)
+5. Moonlit Sonata Redux by Clara Vale  [classical, peaceful]
+   Score: 1.31
+   Because: energy 0.18 vs target 0.35 (+0.83); acoustic fit (+0.48)
 ```
 
 ---
@@ -222,13 +245,31 @@ Prefs:   genre=pop, mood=happy, energy=0.8, likes_acoustic=False
 
 ---
 
+## Diversity Penalty (Optional Challenge 3)
+
+`recommend_diverse()` in `src/recommender.py` builds the top 5 one song at a time. Before each pick, any song whose **artist** is already in the list loses **1.0** point and any song whose **genre** is already in the list loses **0.5**. The penalty shows up in the reasons, e.g. `genre already in list (-0.5)`.
+
+Effect on the Chill Lofi profile:
+
+| Rank | Normal | With diversity penalty |
+|---|---|---|
+| 1 | Library Rain (lofi) | Library Rain (lofi) |
+| 2 | Midnight Coding (lofi, LoRoom) | Midnight Coding (lofi, LoRoom) |
+| 3 | Spacewalk Thoughts (ambient) | Spacewalk Thoughts (ambient) |
+| 4 | **Focus Flow (lofi, LoRoom)** | Coffee Shop Stories (jazz) |
+| 5 | Coffee Shop Stories (jazz) | **Moonlit Sonata Redux (classical)** |
+
+Focus Flow drops out because it repeats both an artist (LoRoom) and a genre (lofi) that are already in the list, so a classical song gets a spot instead. The full output is in Sample Recommendation Output above.
+
+---
+
 ## Limitations and Risks
 
 - Tiny catalog: 18 songs, and most moods have only one or two songs.
 - Exact string matching: "indie pop" ≠ "pop", and "k-pop" matches nothing.
 - Mood is worth so much that it can override what the user said about energy.
 - It doesn't understand lyrics, language, or listening history.
-- It never adds variety on purpose, so the same high-energy songs (like *Gym Hero*) show up for very different users.
+- The default ranking never adds variety on purpose, so the same high-energy songs (like *Gym Hero*) show up for very different users. The optional diversity penalty helps inside one list, but not across different users.
 
 More detail is in the model card.
 

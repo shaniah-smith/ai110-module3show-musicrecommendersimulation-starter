@@ -4,7 +4,7 @@ Command line runner for the Music Recommender Simulation.
 Run from the project folder with:  python -m src.main
 """
 
-from src.recommender import DEFAULT_WEIGHTS, load_songs, recommend_songs
+from src.recommender import DEFAULT_WEIGHTS, load_songs, recommend_diverse, recommend_songs
 
 PROFILES = {
     "Happy Pop (default)": {"genre": "pop", "mood": "happy", "energy": 0.8, "likes_acoustic": False},
@@ -19,14 +19,16 @@ PROFILES = {
 EXPERIMENT_WEIGHTS = {**DEFAULT_WEIGHTS, "energy": DEFAULT_WEIGHTS["energy"] * 2, "genre": DEFAULT_WEIGHTS["genre"] / 2}
 
 
-def print_recommendations(name: str, prefs: dict, songs: list, k: int = 5, weights: dict = None) -> None:
+def print_recommendations(name: str, prefs: dict, songs: list, k: int = 5, weights: dict = None,
+                          diverse: bool = False) -> None:
     """Print a profile's top k songs with scores and reasons."""
     print("=" * 72)
     print(f"Profile: {name}")
     print(f"Prefs:   genre={prefs['genre']}, mood={prefs['mood']}, energy={prefs['energy']}, "
           f"likes_acoustic={prefs['likes_acoustic']}")
     print("-" * 72)
-    for rank, (song, score, explanation) in enumerate(recommend_songs(prefs, songs, k, weights), start=1):
+    ranker = recommend_diverse if diverse else recommend_songs
+    for rank, (song, score, explanation) in enumerate(ranker(prefs, songs, k, weights), start=1):
         print(f"{rank}. {song['title']} by {song['artist']}  [{song['genre']}, {song['mood']}]")
         print(f"   Score: {score:.2f}")
         print(f"   Because: {explanation}")
@@ -46,6 +48,11 @@ def main() -> None:
     print("#" * 72)
     print_recommendations("Happy Pop (experiment weights)", PROFILES["Happy Pop (default)"], songs,
                           weights=EXPERIMENT_WEIGHTS)
+
+    print("#" * 72)
+    print("CHALLENGE 3: diversity penalty (-1.0 repeat artist, -0.5 repeat genre)")
+    print("#" * 72)
+    print_recommendations("Chill Lofi (diverse)", PROFILES["Chill Lofi"], songs, diverse=True)
 
 
 if __name__ == "__main__":

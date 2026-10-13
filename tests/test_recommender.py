@@ -94,3 +94,15 @@ def test_recommend_songs_sorted_highest_first():
     assert len(results) == 5
     assert scores == sorted(scores, reverse=True)
     assert results[0][0]["genre"] == "lofi"
+
+
+def test_diversity_penalty_avoids_repeat_artist_and_genre():
+    from src.recommender import recommend_diverse
+    songs = load_songs("data/songs.csv")
+    prefs = {"genre": "lofi", "mood": "chill", "energy": 0.35, "likes_acoustic": True}
+    plain = [s["title"] for s, _, _ in recommend_songs(prefs, songs, k=5)]
+    diverse = recommend_diverse(prefs, songs, k=5)
+    titles = [s["title"] for s, _, _ in diverse]
+    assert "Focus Flow" in plain          # LoRoom + lofi again
+    assert "Focus Flow" not in titles     # pushed out by the penalty
+    assert len(titles) == len(set(titles)) == 5

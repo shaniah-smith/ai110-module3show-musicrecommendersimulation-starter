@@ -10,19 +10,22 @@
 
 **What task did you give the agent?**
 
-<!-- Describe the goal you asked the agent to accomplish -->
+I asked Claude to build Optional Challenge 3, a diversity penalty, because in my testing the same songs kept showing up and the Chill Lofi list had two LoRoom songs in it. I wanted the recommender to stop stacking the same artist or genre in the top 5.
 
 **Prompts used:**
 
-<!-- Paste the key prompts you gave the agent -->
+Roughly: "Build the diversity penalty challenge for my music recommender and give me terminal commands." Before that I had told it the change I'd want next was to stop repeat songs from showing up for everyone.
 
 **What did the agent generate or change?**
 
-<!-- List the files edited, code generated, or commands run -->
+- `src/recommender.py`: added `recommend_diverse()` and `DIVERSITY_PENALTY` (-1.0 for a repeat artist, -0.5 for a repeat genre). It picks songs one at a time and re-checks the penalty after every pick.
+- `src/main.py`: added a "Chill Lofi (diverse)" run at the end of the output.
+- `tests/test_recommender.py`: added a test that Focus Flow is in the normal lofi list but gets pushed out of the diverse one.
+- `README.md`: added a Diversity Penalty section with a before/after table.
 
 **What did you verify or fix manually?**
 
-<!-- Describe anything the agent got wrong or that required human review -->
+I ran `python -m src.main` and `python -m pytest` on my laptop and compared the normal and diverse Chill Lofi lists. Focus Flow (LoRoom, lofi) dropped out and Moonlit Sonata Redux (classical) took its spot, which is what I wanted. I also checked that Library Rain stayed #1 with the same score, since it's the first pick and nothing should be penalized yet. Midnight Coding still made #2 even with the -0.5 genre penalty, which makes sense because it's a strong mood and genre match.
 
 ---
 
