@@ -52,7 +52,12 @@ Then every song in the catalog is sorted by points, and the top 5 are shown alon
 
 ## 6. Limitations and Bias
 
-The biggest weakness I found is that **mood can override everything else the user asked for.** For the "High-Energy but Sad" profile (indie, sad, energy 0.9), the #1 song was *Empty Platform*, a quiet 0.30-energy track. It earned 3.0 points just for matching mood and genre, while its energy was a terrible match. Meanwhile the high-energy songs that actually fit "0.9" all tied around 1.44 and had nothing to do with sadness. The system can't represent a mixed request like "sad but loud." It simply follows whichever rule is worth the most points. A second bias is **exact text matching**: *Rooftop Lights* is "indie pop," so it never gets genre credit from a "pop" fan, and a "k-pop" fan's genre is silently ignored. A third is the **filter bubble effect of a small catalog**: high-energy songs like *Gym Hero* and *Storm Runner* show up in the top 5 for Happy Pop, Deep Intense Rock, and the sad edge case alike, because once the one or two mood matches are used up, the remaining spots go to whatever has a similar energy.
+The biggest weakness I found is that **mood can override everything else the user asked for.** For the "High-Energy but Sad" profile (indie, sad, energy 0.9), the #1 song was *Empty Platform*, a quiet 0.30-energy track. It earned 3.0 points just for matching mood and genre, while its energy was a terrible match. Meanwhile the high-energy songs that actually fit "0.9" all tied around 1.44 and had nothing to do with sadness. The system can't represent a mixed request like "sad but loud," so it simply follows whichever rule is worth the most points.
+
+**Other weaknesses I noticed:**
+
+- **Exact text matching:** *Rooftop Lights* is "indie pop," so it never gets genre credit from a "pop" fan, and a "k-pop" fan's genre is silently ignored.
+- **Filter bubble from a small catalog:** *Gym Hero* and *Storm Runner* show up in the top 5 for Happy Pop, Deep Intense Rock, and the sad edge case alike, because once the mood matches run out, the leftover spots go to whatever has a similar energy.
 
 ---
 
